@@ -10,6 +10,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.entity.Entity;
 import java.util.HashMap;
 import java.util.ArrayList;
+import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -23,6 +24,7 @@ public class ADW extends JavaPlugin {
 		pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener,
 				Event.Priority.Normal, this);
 		log.info("Anti-Dumb-Wolf Loaded.");
+		addDefaults(getServer());
 	}
 
 	public void onDisable() {
@@ -36,6 +38,13 @@ public class ADW extends JavaPlugin {
 			return true;
 		}
 		return false;
+	}
+
+	public void addDefaults(Server instance) {
+		for (int i = 1; i <= instance.getWorlds().size(); i++) {
+			ADWWorlds.put(instance.getWorlds().get(i), null);
+		}
+		return;
 	}
 
 	public void toggleADW(Player player) {
