@@ -1,13 +1,22 @@
 package usa.mik99925.ADW;
 
 import java.util.logging.Logger;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.entity.Entity;
+import java.util.HashMap;
+import java.util.ArrayList;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 public class ADW extends JavaPlugin {
-	private static final Logger log = Logger.getLogger("Minecraft");
+	public static Logger log = Logger.getLogger("Minecraft");
 	private final ADWEntityListener entityListener = new ADWEntityListener(this);
+	public final HashMap<World, ArrayList<Entity>> ADWWorlds = new HashMap<World, ArrayList<Entity>>();
 
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
@@ -17,6 +26,34 @@ public class ADW extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		log.info("Anti-Dumb-Wolf Disabled.");
+		log.info("Anti-Dumb-Wolf Unloaded.");
+	}
+
+	public boolean onCommand(CommandSender sender, Command command,
+			String label, String[] args) {
+		if (label.equalsIgnoreCase("ADW")) {
+			toggleADW((Player) sender);
+			return true;
+		}
+		return false;
+	}
+
+	public void toggleADW(Player player) {
+		if (player.isOp()) {
+			if (enabled(player.getWorld())) {
+				this.ADWWorlds.remove(player.getWorld());
+				player.sendMessage("Anti-Dumb-Wolf disabled on "
+						+ player.getWorld());
+			} else {
+				this.ADWWorlds.put(player.getWorld(), null);
+				player.sendMessage("Anti-Dumb-Wolf enabled on "
+						+ player.getWorld());
+			}
+		} else
+			player.sendMessage("You don't have permission to do this.");
+	}
+
+	public boolean enabled(World world) {
+		return this.ADWWorlds.containsKey(world);
 	}
 }

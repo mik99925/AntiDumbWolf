@@ -1,4 +1,11 @@
 name: ADW
 main: usa.mik99925.ADW.ADW
 version: 0.1
+author: mik99925
+description: >
+             Prevents wolves from taking damage from stupid sources such as cacti, lava, and walking off steep cliffs.
 commands:
+    antidumbwolf:
+        aliases: [adw]
+        description: Toggles anti-dumb-wolf functionality on player's current world.
+        usage:

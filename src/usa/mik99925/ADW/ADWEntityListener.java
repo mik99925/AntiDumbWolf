@@ -17,10 +17,11 @@ public class ADWEntityListener extends EntityListener {
 	public void onEntityDamageByBlock(EntityDamageByBlockEvent event) {
 		Entity defender = event.getEntity();
 		DamageCause type = event.getCause();
-
-		if (defender instanceof Wolf && type != DamageCause.VOID) {
-			event.setCancelled(true);
-			return;
+		if (plugin.enabled(defender.getWorld())) {
+			if (defender instanceof Wolf && type != DamageCause.VOID) {
+				event.setCancelled(true);
+				return;
+			}
 		}
 	}
 
