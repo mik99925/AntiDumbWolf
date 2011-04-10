@@ -41,8 +41,10 @@ public class ADW extends JavaPlugin {
 	}
 
 	public void addDefaults(Server instance) {
-		for (int i = 1; i <= instance.getWorlds().size(); i++) {
-			ADWWorlds.put(instance.getWorlds().get(i), null);
+		for (int i = 0; i < instance.getWorlds().size(); i++) {
+			if(!ADWWorlds.containsKey(instance.getWorlds().get(i))){
+				ADWWorlds.put(instance.getWorlds().get(i), null);
+			}
 		}
 		return;
 	}
