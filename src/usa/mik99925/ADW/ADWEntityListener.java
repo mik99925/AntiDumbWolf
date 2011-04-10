@@ -34,5 +34,12 @@ public class ADWEntityListener extends EntityListener {
 			this.onEntityDamageByBlock((EntityDamageByBlockEvent) event);
 			return;
 		}
+		
+		Entity defender = event.getEntity();
+		
+		if(defender instanceof Wolf && plugin.enabled(defender.getWorld())) {
+			event.setCancelled(true);
+			return;
+		}
 	}
 }
