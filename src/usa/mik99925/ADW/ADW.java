@@ -54,11 +54,11 @@ public class ADW extends JavaPlugin {
 			if (enabled(player.getWorld())) {
 				this.ADWWorlds.remove(player.getWorld());
 				player.sendMessage("Anti-Dumb-Wolf disabled on "
-						+ player.getWorld());
+						+ player.getWorld().getName());
 			} else {
 				this.ADWWorlds.put(player.getWorld(), null);
 				player.sendMessage("Anti-Dumb-Wolf enabled on "
-						+ player.getWorld());
+						+ player.getWorld().getName());
 			}
 		} else
 			player.sendMessage("You don't have permission to do this.");
